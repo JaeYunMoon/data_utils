@@ -70,14 +70,14 @@ class yolo_dataset_confirm(Confirm):
         plt.rcParams["figure.autolayout"] = True # tight_layout
         bars = plt.bar(keys,values)
         plt.xticks(rotation=xticks_rt,fontsize = xticks_fs)
-        plt.xticks(keys,self.labels.values())
+        plt.xticks(list(self.labels.keys()),self.labels.values()) # 기존 keys -> list(self.labels.keys()) // 라벨 중 아무것도 안나온 라벨이 있다면, Error 
         
         for bar in bars:
             height = bar.get_height()
             plt.text(x=bar.get_x() + bar.get_width()/2,y=height+0.5,s = "{}".format(height),ha = "center")
 
-        plt.title(f"{task} Label Count(image_num : {len(self.data_txts)})")
-        sv = os.path.join(self.save_path,f"{task}class_num_graph.png")
+        plt.title(f"{task}_Label Count(image_num : {len(self.data_txts)})")
+        sv = os.path.join(self.save_path,f"{task}_class_num_graph.png")
         plt.savefig(sv,dpi=200)
         matplotlib.use('Agg')
         plt.close()
